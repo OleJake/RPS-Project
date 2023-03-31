@@ -1,16 +1,23 @@
 const choices = ["rock", "paper", "scissors"];
+const winners = [];
 
 function game() {
-  playRound();
+  for (let i = 1; i <= 5; i++) {
+    playRound(i);
+  }
+  winCounter();
 }
 
 function computerChoice() {
   return choices[Math.floor(Math.random() * choices.length)];
 }
 
-function playRound() {
+function playRound(round) {
   const playerSelection = playerChoice();
   const computerSelection = computerChoice();
+  const winner = checkWinner(playerSelection, computerSelection);
+  winners.push(winner);
+  logRound(playerSelection, computerSelection, winner, round);
 }
 
 function playerChoice() {
@@ -30,6 +37,7 @@ function playerChoice() {
     input = input.toLowerCase();
     check = validateInput(input);
   }
+  return input;
 }
 
 function validateInput(choice) {
@@ -37,6 +45,37 @@ function validateInput(choice) {
     return true;
   }
   return false;
+}
+
+function checkWinner(choicePlayer, choiceComputer) {
+  if (choicePlayer === choiceComputer) {
+    return "It's a tie!";
+  } else if (
+    (choicePlayer === "rock" && choiceComputer === "scissors") ||
+    (choicePlayer === "paper" && choiceComputer === "rock") ||
+    (choicePlayer === "scissors" && choiceComputer === "paper")
+  ) {
+    return "You win!";
+  } else {
+    return "You lose!";
+  }
+}
+
+function winCounter() {
+  let playerWins = winners.filter((wins) => wins == "You win!").length;
+  let computerWins = winners.filter((wins) => wins == "You lose!").length;
+  let ties = winners.filter((wins) => wins == "It's a tie!").length;
+  console.log("Results:");
+  console.log("Player Wins:", playerWins);
+  console.log("Computer Wins:", computerWins);
+  console.log("Ties:", ties);
+}
+
+function logRound(playerChoice, computerChoice, winner, round) {
+  console.log("Round", round);
+  console.log("You chose ", playerChoice);
+  console.log("Computer chose ", computerChoice);
+  console.log(winner, "wins the round!");
 }
 
 game();
