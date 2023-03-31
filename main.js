@@ -2,6 +2,7 @@ const choices = ["rock", "paper", "scissors"];
 const winners = [];
 
 function game() {
+  // a function that starts the game
   for (let i = 1; i <= 5; i++) {
     playRound(i);
   }
@@ -9,9 +10,10 @@ function game() {
 }
 
 function computerChoice() {
+  // randomly returns a string from the choices array
   return choices[Math.floor(Math.random() * choices.length)];
 }
-
+// plays a round of the game
 function playRound(round) {
   const playerSelection = playerChoice();
   const computerSelection = computerChoice();
@@ -21,12 +23,15 @@ function playRound(round) {
 }
 
 function playerChoice() {
+  // prompts the player to choose
   let input = prompt("Rock, Paper, or Scissors?");
+  // while loop that sends the prompt again if input is null
   while (input == null) {
     input = prompt("Rock, paper, or Scissors?");
   }
   input = input.toLowerCase();
   let check = validateInput(input);
+  // while loop that sends a new prompt if mistype is made
   while (check == false) {
     input = prompt(
       "Type rock, paper, or scissors. Spelling needs to be exact, but capitalization does not matter"
@@ -48,6 +53,7 @@ function validateInput(choice) {
 }
 
 function checkWinner(choicePlayer, choiceComputer) {
+  // a function that checkss the winner of the round and returns a string
   if (choicePlayer === choiceComputer) {
     return "It's a tie!";
   } else if (
@@ -62,6 +68,7 @@ function checkWinner(choicePlayer, choiceComputer) {
 }
 
 function winCounter() {
+  // a function that tracks the results of the game
   let playerWins = winners.filter((wins) => wins == "You win!").length;
   let computerWins = winners.filter((wins) => wins == "You lose!").length;
   let ties = winners.filter((wins) => wins == "It's a tie!").length;
@@ -72,6 +79,7 @@ function winCounter() {
 }
 
 function logRound(playerChoice, computerChoice, winner, round) {
+  // a function that tracks the results of the round
   console.log("Round", round);
   console.log("You chose ", playerChoice);
   console.log("Computer chose ", computerChoice);
