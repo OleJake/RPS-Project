@@ -2,7 +2,7 @@ const choices = ["rock", "paper", "scissors"];
 const winners = [];
 
 function game() {
-  // a function that starts the game
+  // a function that starts the game and plays five rounds
   for (let i = 1; i <= 5; i++) {
     playRound(i);
   }
